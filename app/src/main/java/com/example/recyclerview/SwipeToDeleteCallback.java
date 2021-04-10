@@ -19,13 +19,15 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     private ItemAdapter mItemAdapter;
     private Drawable icon;
     private final ColorDrawable background;
+    Context  mContext;
 
-    public SwipeToDeleteCallback(ItemAdapter itemAdapter) {
+    public SwipeToDeleteCallback(ItemAdapter itemAdapter, Context context) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         mItemAdapter = itemAdapter;
         icon = ContextCompat.getDrawable(mItemAdapter.getContext(),
                 R.drawable.ic_baseline_delete_24);
         background = new ColorDrawable(Color.RED);
+        mContext = context;
     }
 
     @Override
@@ -73,7 +75,7 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-        AlertDialog dialog = new AlertDialog.Builder(viewHolder.itemView.getContext())
+        AlertDialog dialog = new AlertDialog.Builder(mContext)
                 .setTitle("Alert")
                 .setMessage("Are you sure?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -83,7 +85,6 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
                         int position = viewHolder.getAdapterPosition();
                         // Then you can remove this item from the adapter
                         mItemAdapter.deleteItem(position);
-                        dialog.dismiss();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

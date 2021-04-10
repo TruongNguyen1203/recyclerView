@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(itemAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ItemTouchHelper itemTouchHelper = new
-                ItemTouchHelper(new SwipeToDeleteCallback(itemAdapter));
+                ItemTouchHelper(new SwipeToDeleteCallback(itemAdapter,this));
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
